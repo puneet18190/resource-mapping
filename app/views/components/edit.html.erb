@@ -1,0 +1,34 @@
+<div class="container">
+	<div class="page-header">
+	  <h1>New Component</h1>
+	  <h2>Section: <%= @section.title %></h2>
+	</div>
+	<%= form_for @component,url: tool_section_component_path(params[:tool_id],params[:section_id],params[:id]), :html => { :class => "form-horizontal component" } do |f| %>
+	  <div class="control-group">
+	    <%= f.label :component_title, :class => 'control-label' %>
+	    <div class="controls">
+	      <%= f.text_field :title, :class => 'form-control' %>
+	    </div>
+	  </div>
+	  <div class="control-group">
+	    <%= f.label :component_description, :class => 'control-label' %>
+	    <div class="controls">
+	      <%= f.text_field :description, :class => 'form-control' %>
+	    </div>
+	  </div>
+	  <%= f.hidden_field :section_id, :value => params[:section_id] %>
+	  <br/>
+	    <fieldset>
+	      <legend>Resources</legend>
+	      <%= render('edit_resource', :f => f) %>
+	      
+	      <%fields = link_to_add_fields("Add Resource", f, :resources, :class => "btn btn-primary", :title => "Add a new Resource.") %>
+		  <%= link_to 'Add Resource','#', :class => 'btn btn-default',:onclick => "add_fields(this, \"#{ :resources }\", \"#{ escape_javascript(fields) }\")" %>
+
+	    </fieldset>
+		<br/>
+	  <%= f.submit nil, :class => 'btn btn-primary' %>
+	<% end %>
+	<hr>
+</div>
+

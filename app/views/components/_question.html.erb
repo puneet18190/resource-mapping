@@ -1,0 +1,25 @@
+<%= form_for question, as: type, url: url), :html => { :class => "form-horizontal section" } do |f| %>
+
+  <div class="modal-body">
+    <div class="control-group">
+      <%= f.label :title, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :title, :class => 'form-control' %>
+      </div>
+    </div>
+    <div class="control-group">
+      <%= f.label :help, :class => 'control-label' %>
+      <div class="controls">
+        <%= f.text_field :help, :class => 'form-control' %>
+      </div>
+      <%#= f.hidden_field :tool_id, :value => params[:id] %>
+    </div>
+
+    <br/>
+  </div>
+  <div class="modal-footer">
+    <%= f.submit nil, :class => 'btn btn-primary' %>
+    <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+              new_tool_section_component_path(params[:tool_id], params[:section_id]), :class => 'btn btn-default' %>
+  </div>
+<% end %>

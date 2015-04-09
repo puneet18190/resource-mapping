@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  type: 
+  url: MyString
+  component_id: 
+
+two:
+  title: MyString
+  type: 
+  url: MyString
+  component_id: 
