@@ -2,6 +2,10 @@ class ComponentsController < ApplicationController
   before_action :authenticate_admin!
   before_action :set_component, only: [:update, :destroy]
   
+  def show
+    @component = Component.find(params[:id])
+  end
+
   def edit
 
     @component = Component.find_by_id(params[:id])
@@ -18,20 +22,22 @@ class ComponentsController < ApplicationController
   end
 
   def create
-    @component = Component.new(component_params)
+    # binding.pry
+
+    @component = Section.find(params[:section_id]).components.new(component_params)
 
     respond_to do |format|
       if @component.save
-        format.html { redirect_to :back, notice: 'Component was successfully created.' }
+        format.html { redirect_to add_components_tool_path(params[:tool_id]), notice: 'Component was successfully created.' }
       end
     end
   end
 
   def update
-     binding.pry
+     # binding.pry
     respond_to do |format|
       if @component.update(component_params)
-        format.html { redirect_to :back, notice: 'Component was successfully updated.' }
+        format.html { redirect_to add_components_tool_path(params[:tool_id]), notice: 'Component was successfully updated.' }
       end
     end
   end
@@ -49,6 +55,6 @@ class ComponentsController < ApplicationController
     end
   
     def component_params
-      params.require(:component).permit(:title,:description,:section_id,resources_attributes: [:id,:title,:r_type,:url])
+      params.require(:component).permit(:title,:description,:section_id,resources_attributes: [:id,:title,:r_type,:url],questions_attributes: [:id,:title,:help])
     end
 end

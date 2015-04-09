@@ -1,37 +1,50 @@
 <div class="container">
+	<ol class="breadcrumb">
+	    <li><a href="/">Home</a></li>
+	    <li><a href="/tools">Tools</a></li>
+	    <li><a href=<%="#{content_template_tool_path(params[:id])} "%>>Content Template</a></li>
+	    <li class="active">Add Component</li>
+	  </ol>
 	<h4>Select Section</h4>
-	<br/>
-	<div class="btn-group">
+	 <select class="selectpicker show-tick comp_url">
+	  	<% @sections.each do |section| %>
+		    <option class="<%=new_tool_section_component_path(params[:id],section.id)%>"><%= section.title %></option>
+	    <%end%>
+	  </select>
+	<!-- <div class="btn-group">
 	  <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 	    Section <span class="caret"></span>
 	  </button>
 	  <ul class="dropdown-menu" role="menu">
-	  	<% @sections.each do |section| %>
-	    	<li><a href="#" val="<%=new_tool_section_component_path(params[:id],section.id)%>"><%= section.title %></a></li>
-	    <% end %>
+	  	<%# @sections.each do |section| %>
+	    	<li><a href="#" class="comp_url" val="<%#=new_tool_section_component_path(params[:id],section.id)%>"><%#= section.title %></a></li>
+	    <%# end %>
 	  </ul>
-	</div>
+	</div> -->
 	<br/><br/>
-	<%= link_to 'Add Component',new_tool_section_component_path(params[:id],1),:class => 'btn btn-primary' %>
+	<%= link_to 'Add Component',new_tool_section_component_path(params[:id],1),:class => 'btn btn-primary new_comp' %>
 	<hr>
 
 	<% @sections.each_with_index do |section,index| %>
-		<h2><%= "Section #{index+1}" %></h2>
+		<h2><%= "Section #{index+1}: #{section.title}" %></h2>
 		<table class="table table-striped table-bordered">
 		    <thead>
 		      <tr>
 		        <th>Title</th>
 		        <th>Description</th>
+		        <th></th>
+		        <th></th>
+		        <th></th>
 		      </tr>
 		    </thead>
 		    <tbody>
 		    	<% if section.components.empty? %>
-		    		<tr><td>No Component to display.</td><td></td></tr>
+		    		<tr><td>No Component to display.</td><td></td><td></td><td></td><td></td></tr>
 		    	<%else%>
 			    	<% section.components.each do |component| %>
 				        <tr>
-				          <td><%= section.title %></td>
-				          <td><%= section.description %></td>
+				          <td><%= component.title %></td>
+				          <td><%= component.description %></td>
 				          <td><%= link_to('Show', tool_section_component_path(params[:id],section.id,component.id), :title => "View #{ section.title }.")  %></td>
 					        <td><%= link_to('Edit', edit_tool_section_component_path(params[:id],section.id,component.id), :title => "Edit #{ section.title }.") %></td>
 					        <td><%= link_to('Delete',tool_section_component_path(params[:id],section.id,component.id), :method => :delete, :confirm => "Are you sure you want to permanently delete the #{ section.title } ", :title => "Delete #{ section.title }.") %></td>
@@ -63,3 +76,9 @@
 	<% end %>  
 	<%= link_to 'Save Components',content_template_tool_path(:id=>params[:id]),:class => 'btn btn-primary' %>
 </div>	
+
+<script type="text/javascript">
+	$('.selectpicker').on('change',function(){
+		$(".new_comp").attr("href",$('.selectpicker option:selected').attr("class"))
+	})
+</script>

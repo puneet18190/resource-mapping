@@ -13,6 +13,8 @@
 //= require jquery
 //= require jquery_ujs
 //= require twitter/bootstrap
+//= require jquery-sortable
+//= require bootstrap-select
 //= require turbolinks
 //= require_tree .
 function remove_fields(link) {
@@ -25,4 +27,11 @@ function add_fields(link, association, content) {
     var regex = new RegExp("new_" + association, "g");
     $(link).parent().after(content.replace(regex, new_id));
     $('#new-resource-fields').modal('show');
+}
+
+function add_fields_q(link, association, content) {
+    var new_id = new Date().getTime();
+    var regex = new RegExp("new_" + association, "g");
+    $(link).parent().after(content.replace(regex, new_id));
+    $('#new-question-fields').modal('show');
 }

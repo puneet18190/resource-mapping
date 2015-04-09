@@ -9,7 +9,8 @@
     <%= f.fields_for(:resources) do |resource| %>
       <tr class="fields">
         <td><%= resource.text_field(:title) %></td>
-        <td><%= resource.text_field(:r_type) %></td>
+        <td><%= resource.select(:r_type, ['PDF','Image','Video']) %></td>
+        <td><%#= resource.text_field(:r_type) %></td>
         <td><%= resource.text_field(:url) %></td>
         <%# if current_page?(new_ship_path) || current_page?(edit_ship_path) %>
             <td>

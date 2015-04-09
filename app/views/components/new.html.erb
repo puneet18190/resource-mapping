@@ -1,4 +1,11 @@
 <div class="container">
+	<ol class="breadcrumb">
+	    <li><a href="/">Home</a></li>
+	    <li><a href="/tools">Tools</a></li>
+	    <li><a href=<%="#{content_template_tool_path(params[:tool_id])} "%>>Content Template</a></li>
+	    <li><a href=<%="#{add_components_tool_path(params[:tool_id])} "%>>Components</a></li>
+	    <li class="active">Add Content</li>
+	  </ol>
 	<div class="page-header">
 	  <h1>New Component</h1>
 	  <h2>Section: <%= @section.title %></h2>
@@ -26,8 +33,20 @@
 		  <%= link_to 'Add Resource','#', :class => 'btn btn-default',:onclick => "add_fields(this, \"#{ :resources }\", \"#{ escape_javascript(fields) }\")" %>
 
 	    </fieldset>
+	    <hr>
+	    <fieldset>
+	      <legend>Assessment Questions</legend>
+	      <%= render('question', :f => f) %>
+	      
+	      <%fields = link_to_add_fields("Add Question", f, :questions, :class => "btn btn-primary", :title => "Add a new Question.") %>
+		  <%= link_to 'Add Question','#', :class => 'btn btn-default',:onclick => "add_fields_q(this, \"#{ :questions }\", \"#{ escape_javascript(fields) }\")" %>
+
+	    </fieldset>
+
 		<br/>
 	  <%= f.submit nil, :class => 'btn btn-primary' %>
+	  <%= link_to t('.cancel', :default => t("helpers.links.cancel")),
+            add_components_tool_path(params[:tool_id]), :class => 'btn btn-default' %>
 	<% end %>
 	<hr>
 </div>
